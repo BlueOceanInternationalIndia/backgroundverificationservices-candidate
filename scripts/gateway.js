@@ -11,7 +11,6 @@ window.addEventListener('load', async () => {
             email: urlParams.get('email'),
             username: urlParams.get('user'),
         }
-    console.log(reqUser, activeUser);
 
     //Validating Request
     if( !activeUser.valid ||

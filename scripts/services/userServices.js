@@ -15,7 +15,7 @@ const userServices = {
         const expiry = new Date();
         expiry.setTime(expiry.getTime() + (expiresIn_min * 60000));
         document.cookie = `${name}=${value}; expires=${expiry.toUTCString()}; path=/`
-        console.log(`Cookie ${name} Set`);
+        // console.log(`Cookie ${name} Set`);
         return true
     },
 
@@ -59,7 +59,6 @@ const userServices = {
     },
 
     login: async (e) => {
-        console.log(e.target);
         e.preventDefault();
 
         const Input = Array.from(e.target.querySelectorAll('input')),
@@ -67,11 +66,8 @@ const userServices = {
             
         (Message.style.visibility == 'visible')? Message.style.visibility == 'hidden' : null;
 
-        console.log(Input, Message);
-
         //Validating Input
         const fieldsValid = Input.forEach((elem) => {
-            console.log(elem.value == '');
             if(elem.value == '' || elem.value == null) {
                 Message.innerText = 'Enter Username and Password';
                 Message.style.color = 'red';
@@ -93,18 +89,16 @@ const userServices = {
 
         //Calling Server to validate user
         const activeUser = await axios.post(`${AUTH_SERVER_URI}/candidate/auth`, user).then((resp) => {
-            console.log(resp.data.user);
-
             if( userServices.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
                 userServices.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
             ) window.location.href = (`landing.html?uid=${resp.data.user.uid}&id=${resp.data.user.id}&name=${resp.data.user.name}&email=${resp.data.user.email}&user=${resp.data.user.username}`);
-            // else {
-            //     console.log('Cookie Not Set');
-            //     Message.innerText = 'Bad request';
-            //     Message.style.color = 'red';
-            //     Message.style.visibility = 'visible'
-            //     return false
-            // }
+            else {
+                console.log('Cookie Not Set');
+                Message.innerText = 'Bad request';
+                Message.style.color = 'red';
+                Message.style.visibility = 'visible'
+                return false
+            }
 
         }).catch((err) => {
             console.log("Cannot Connect to Auth Server. Error:", err);
