@@ -26,7 +26,6 @@
     --fontColor2: rgb(80,80,80);
 
     --borderRadius: 20px;
-    --header_Height: 65px;
     --footer_Height: 30px;
 
     --Size1: clamp(5px, 0.5vw + 1px, 10px);
@@ -35,7 +34,22 @@
     /*----------------- Debug -----------------*/
     --mainContainer_BGColor: transparent;
     --wrapper_BGColor: transparent;
+
+    /*----------------- Screen Dependent -----------------*/
+    --sideNav_Pos: relative;
+    --sideNav_Width: 42%;
+    --hamMenu_Display: none;
+    --scrollBarWidth: 17px;
     
+}
+
+@media only screen and (min-width: 200px) and (max-width: 860px)  {
+    :root {
+        --sideNav_Pos: absolute;
+        --sideNav_Width: 0px;
+        --hamMenu_Display: grid;
+
+    }
 }
 
 * {
@@ -64,6 +78,10 @@ a {
     color: var(--fontColor1);
 }
 
+hr {
+    width: 100%;
+}
+
 label {
     text-indent: 10px;
     padding: 5px 0 10px 0;
@@ -83,6 +101,12 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
     border-color: var(--Color4);
     box-shadow: 0 0 2px 2px var(--Color4);
+}
+
+input[type="checkbox"] {
+    height: 30px;
+    width: 30px;
+    margin: 10px;
 }
 
 button {
@@ -108,10 +132,6 @@ button:not([disabled]):active {
     box-shadow: none;
 }
 
-.flex {
-    display: flex!important;
-}
-
 .mainContainer {
     display: grid;
         height: 100%;
@@ -134,6 +154,7 @@ button:not([disabled]):active {
         width: 100%;
     flex-direction: row;
     border-bottom: var(--Color3) solid 2px;
+    z-index: 1100;
 }
 
 .footer {
@@ -163,91 +184,72 @@ button:not([disabled]):active {
     isolation: isolate;
 }
 
-.listHori > *, .listVerti > * {
-    width: 100%;
+.listHori > *, .listVerti > * { width: 100% }
+
+.hoverColor3:hover { background-color: var(--Color3) }
+
+.flex { display: flex!important }
+.fitContent { 
+    width: fit-content; 
+    height: fit-content;
 }
 
-.alignCenter {
-    align-content: center;
-}
+.alignTop { align-content: top }
+.alignCenter { align-content: center }
+.justifyCenter { justify-content: center }
+.justifyBottom { justify-content: bottom  }
+.alignLeft { justify-content: left }
+.alignRight { justify-content: right }
+.alignBottom { align-content: end }
 
-.alignLeft {
-    justify-content: left;
-}
+.textCenter { text-align: center }
+.textLeft { text-align: left }
+.textJustify { text-align: justify }
+.textIndent20 { text-indent: 20px }
+.textIndent10 { text-indent: 10px }
 
-.alignRight {
-    justify-content: right;
-}
+.fontXXXL { font-size: 2rem; }
+.fontXXL { font-size: 1.75rem; }
+.fontXL { font-size: 1.5rem; }
+.fontL { font-size: 1.25rem; }
+.fontM { font-size: 1rem; }
+.fontS { font-size: 0.75rem; }
+.fontXS { font-size: 0.5rem; }
 
-.alignBottom {
-    align-content: end;
-}
+.fontColor1 { color: var(--fontColor1); }
+.fontColor2 { color: var(--fontColor2) }
 
-.textCenter {
-    text-align: center;
-}
+.paletteColor1 { background-color: var(--palette2_Color1) }
+.paletteColor2 { background-color: var(--palette2_Color2) }
+.paletteColor3 { background-color: var(--palette2_Color3) }
+.paletteColor4 { background-color: var(--palette2_Color4) }
+.bgColor1 { background-color: var(--Color1) }
+.bgColor2 { background-color: var(--Color2) }
+.bgColor3 { background-color: var(--Color3) }
 
-.fontXL {
-    font-size: 2rem;
-}
+.cursorNone { cursor: none }
 
-.fontL {
-    font-size: 1.25rem;
-}
+.boxShadow1 { box-shadow: var(--Color5) 0px 7px 20px 0px }
+.boxShadow2 { box-shadow: var(--Color5) 0px 0px 15px 0px }
 
-.fontM {
-    font-size: 1rem;
-}
+.boxBorder1 { border: 2px solid var(--Color3) }
+.boxBorder2 { border-left: 5px solid var(--palette1_Color1) }
 
-.fontS {
-    font-size: 0.75rem;
-}
+.borderRadius100 { border-radius: 100% }
 
-.fontXS {
-    font-size: 0.5rem;
-}
+.overflowHidden { overflow: hidden }
 
-.fontColor1 {
-    color: var(--fontColor1);
-}
+.childHeight100p > * { height: 100% }
 
-.fontColor2 {
-    color: var(--fontColor2);
-}
+.padding30 { padding: 30px }
 
-.paletteColor1 {
-    background-color: var(--palette2_Color1);
-}
+.hidden { visibility: hidden }
 
-.paletteColor2 {
-    background-color: var(--palette2_Color2);
-}
-
-.paletteColor3 {
-    background-color: var(--palette2_Color3);
-}
-
-.paletteColor4 {
-    background-color: var(--palette2_Color4);
-}
-
-.cursorNone {
-    cursor: none;
-}
-
-.boxShadow1 {
-    box-shadow: var(--Color5) 0px 7px 20px 0px;
-    box-shadow: var(--Color5) 0px 7px 20px 0px;
-}
-
-.padding30 {
-    padding: 30px;
-    background-color: red;
-}
-
-.hidden {
-    visibility: hidden;
-}
+.red{ background-color: red }
+.blue{ background-color: lightblue }
+.green{ background-color: lightgreen }
+.pink{ background-color: lightpink }
+.grey{ background-color: lightgrey }
 
 .logo {
     display: grid;
@@ -262,4 +264,51 @@ button:not([disabled]):active {
 .logo > .wrapper > img {
     width: 85%;
     aspect-ratio: 13/2;
+    margin: 20px;
 }
+
+.sideNav {
+    position: var(--sideNav_Pos);
+    display: grid;
+        height: 100%;
+        width: var(--sideNav_Width);
+        max-width: 300px;
+        top: 0;
+        left: 0;
+    place-items: center;
+    background-image: linear-gradient(to right, var(--palette1_Color1), var(--palette1_Color2));
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sideNavTab { border-left: 5px solid var(--palette1_Color1) }
+
+.sideNavTab:hover{
+    background-color: var(--palette1_Color2);
+    border-left: 5px solid var(--Color1);  
+}
+
+.sideNav[data-status = "active"] { width: 300px!important }
+.sideNavTab[data-enabled="false"] { color: var(--palette1_Color2) }
+
+.hamMenu {
+    display: var(--hamMenu_Display);
+        height: 100%;
+        width: fit-content;
+    padding: 0 20px 0 20px;
+    /* background-color: red; */
+}
+
+.hamMenu > .wrapper > * {
+        height: 4px;
+        width: 30px;
+    border-radius: var(--borderRadius);
+    background-color: var(--Color2);
+    opacity: 50%;
+    margin: 5px 0 0 0;
+    transition: transform .1s linear;
+}
+
+.hamMenu[data-status = "active"] > .wrapper > *:nth-child(2) { transform: translate(0, 220%) rotate(45deg) }
+.hamMenu[data-status = "active"] > .wrapper > *:nth-child(3) { visibility: hidden }
+.hamMenu[data-status = "active"] > .wrapper > *:nth-child(4) { transform: translate(0, -220%) rotate(-45deg) }

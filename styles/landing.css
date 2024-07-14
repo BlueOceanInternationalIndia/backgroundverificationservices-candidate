@@ -1,0 +1,34 @@
+#FormSpace {
+    display: grid;
+        height: 95%;
+        width: 90%;
+    place-items: center;
+    border-radius: var(--borderRadius);
+    background-color: var(--Color1);
+    overflow: hidden;
+}
+
+#ProfileImage {
+    display: flex;
+        height: 100%;
+    place-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.frame {
+    display: grid;
+        height: 95%;
+        width: 90%;
+    place-content: top;
+    border-radius: var(--borderRadius);
+    overflow: hidden;
+}
+
+.frame > .wrapper {
+    width: calc(100% + var(--scrollBarWidth));
+    /* overflow-y: scroll; */
+}
+
+#FormHeading {
+   padding: 10px 0 10px 0;
+}

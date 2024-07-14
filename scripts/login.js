@@ -1,16 +1,3 @@
-import userServices from "./services/userServices.js";
+import userServices from "./services/user_Services.js";
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     console.log('DOM Loaded DOC');
-// })
-
-
-// window.addEventListener('DOMContentLoaded', () => {
-//     console.log('DOM Loaded');
-// })
-
-window.addEventListener('load', () => {
-    const Form = document.querySelector('form');
-
-    Form.addEventListener('submit', (e) => userServices.login(e).catch((err) => console.log('User Login Failed. Error: ', err)));
-})
+window.addEventListener('load', () => document.querySelector('form').addEventListener('submit', (e) => userServices.login(e).catch((err) => console.log('User Login Failed. Error: ', err))))

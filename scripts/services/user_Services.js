@@ -1,13 +1,12 @@
 import { AUTH_SERVER_URI, DATA_SERVER_URI } from "../config/config.js";
 
-const userServices = {
+const user = {
     getCookie: (cookie) => {
         const escape = (s) => { 
             return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); 
         }
 
         var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(cookie) + '=([^;]*)'));
-        // console.log(match);
         return (match == null)? null : match[1];
     },
 
@@ -19,8 +18,8 @@ const userServices = {
         return true
     },
 
-    userValidate: async () => {
-        const rTa = userServices.getCookie('rTa'),
+    validate: async () => {
+        const rTa = user.getCookie('rTa'),
                 activeUser = { valid: false, user: { uid: null } }
 
         //Validating cookie
@@ -28,7 +27,6 @@ const userServices = {
         else {
             const session = { token: `Bearer ${rTa}` }
             await axios.post(`${AUTH_SERVER_URI}/candidate/valid`, session).then((resp) => {
-                // console.log(resp.data.user);
                 if(resp.data.valid) {
                     activeUser.valid = true;
                     activeUser.user.uid = resp.data.user.uid;
@@ -45,6 +43,12 @@ const userServices = {
             }) 
         }
         return activeUser;
+    },
+
+    loginValidate: async () => {
+        const validUser = await user.validate();
+        if(!validUser.valid) window.location.href = ("../index.html?valid=false");
+        return validUser
     },
 
     getLogs: async (user) => {
@@ -80,7 +84,7 @@ const userServices = {
         if (fieldsValid == false) return false;
 
         //Extracting user data
-        const user = {
+        const userData = {
             user_name__: Input[0].value,
             pass_word__: Input[1].value
         }
@@ -88,9 +92,9 @@ const userServices = {
         console.log(`User ${user.user_name__} trying to login`);
 
         //Calling Server to validate user
-        const activeUser = await axios.post(`${AUTH_SERVER_URI}/candidate/auth`, user).then((resp) => {
-            if( userServices.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
-                userServices.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
+        const activeUser = await axios.post(`${AUTH_SERVER_URI}/candidate/auth`, userData).then((resp) => {
+            if( user.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
+                user.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
             ) window.location.href = (`landing.html?uid=${resp.data.user.uid}&id=${resp.data.user.id}&name=${resp.data.user.name}&email=${resp.data.user.email}&user=${resp.data.user.username}`);
             else {
                 console.log('Cookie Not Set');
@@ -112,7 +116,7 @@ const userServices = {
     },
 
     logout: async () => {
-        const rTa = userServices.getCookie('rTa'),
+        const rTa = user.getCookie('rTa'),
             session = { token: `Bearer ${rTa}` };
 
         const resp = await axios.post(`${AUTH_SERVER_URI}/candidate/logout`, session).catch((err) => {
@@ -129,11 +133,12 @@ const userServices = {
                 console.log('Cannot Delete Cookies. Error:', err);
                 return false
             }
-            window.location.href = '../index.html'
+            console.log('User Logged Out');
+            window.location.href = './index.html?valid=true'
         } else {
             console.log('Error Logging Out, Try again');
         }        
     }
 }
 
-export default userServices
+export default user
