@@ -11,6 +11,7 @@ export const elements = {
     HamMenu: null,
     UserMenu: null,
     SideNav: null,
+    Form: null,
     ActiveForm: 0,
     SECTIONS: 9
 }
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         value.enabled = urlParams.get(`e${formNum}`) == 'true';
         value.submitted = !(urlParams.get(`a${formNum}`) == 'true');
         (value.file1 !== undefined)? value.file1 = (urlParams.get(`${formNum}f1`) == 'true') : null;
+        // console.log(key, value, value.file1 !== undefined, formNum);
     };
 
     //Validating Request and Updating User
@@ -69,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         elements.SideNavTabs[Number(key.split('form')[1])].dataset.enabled = value.enabled;
         if(value.enabled == true && value.submitted == false) elements.ActiveForm = Number(key.split('form')[1]);    
     }
+
     await form.showLoading();
     await user.loginValidate();
     await form.update(elements.ActiveForm);
@@ -76,6 +79,13 @@ document.addEventListener('DOMContentLoaded', async (e) => {
 
 
 window.addEventListener('load', (e) => {
+
+    //Detecting Form Submit
+    elements.FormSpace.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // console.log('FORM SUBMITTED', e);
+    })
+
     //Detecting Active Menu
     elements.HamMenu.addEventListener("click", () => onClick.hamMenu());
     elements.UserMenu.addEventListener("click", () => onClick.userMenu());

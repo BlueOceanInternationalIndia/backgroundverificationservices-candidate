@@ -85,6 +85,7 @@ hr {
 label {
     text-indent: 10px;
     padding: 5px 0 10px 0;
+    text-align: left;
 }
 
 input, textarea, select {

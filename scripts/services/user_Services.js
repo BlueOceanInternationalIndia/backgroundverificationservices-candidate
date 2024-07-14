@@ -72,6 +72,7 @@ const user = {
 
         //Validating Input
         const fieldsValid = Input.forEach((elem) => {
+            // console.log(elem.value == '');
             if(elem.value == '' || elem.value == null) {
                 Message.innerText = 'Enter Username and Password';
                 Message.style.color = 'red';
@@ -93,6 +94,7 @@ const user = {
 
         //Calling Server to validate user
         const activeUser = await axios.post(`${AUTH_SERVER_URI}/candidate/auth`, userData).then((resp) => {
+
             if( user.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
                 user.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
             ) window.location.href = (`landing.html?uid=${resp.data.user.uid}&id=${resp.data.user.id}&name=${resp.data.user.name}&email=${resp.data.user.email}&user=${resp.data.user.username}`);

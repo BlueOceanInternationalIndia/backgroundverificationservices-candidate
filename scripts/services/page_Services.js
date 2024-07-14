@@ -10,7 +10,9 @@ const page = {
                 elements.HamMenu = document.querySelector('.hamMenu');
                 elements.UserMenu = document.querySelector('#ProfileImage');
                 elements.SideNav = document.querySelector('.sideNav');
+                elements.Form = elements.FormSpace.querySelector('#Form');
             } else for(const [key, value] of Object.entries(elements)) if(key == elem) elements[key] = document.querySelector(query);
+            
             return true
         } catch(err) {
             console.log('Error Updating DOM Elements. Error:', err);
