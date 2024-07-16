@@ -21,7 +21,26 @@
         <div class="wrapper">
             <ul class="listVerti">
                 <li class="header boxShadow1">
-                    <div class="wrapper">
+                    <div class="wrapper" style="position: relative;">
+                        <div class="dropDown bgColor1 boxShadow1" id="UserMenu">
+                            <ul class="listVerti fontColor2">
+                                <li>
+                                    <div class="wrapper">
+                                        <p>Profile</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper">
+                                        <p>Contact Us</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper">
+                                        <p>Logout</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                         <ul class="listHori">
                             <li class="logo">
                                 <div class="wrapper">
@@ -52,10 +71,10 @@
                 </li>
                 <li class="mainContainer bgColor5">
                     <div class="wrapper">
-                        <ul class="listHori" style="position: relative;">
-                            <li class="sideNav boxShadow1">
-                                <div class="wrapper" style="width: 95%; height: 90%;">
-                                    <ul class="listVerti">
+                        <ul class="sideNavTemplate" style="position: relative;">
+                            <li>
+                                <div class="sideNav boxShadow1">
+                                    <ul class="listVerti" style="width: 280px; height: 95%; margin-left: 10px;">
                                         <li class="header fontXL" style="flex: 1; padding-bottom: 10px; font-weight: 600;">
                                             <div class="wrapper textCenter alignCenter justifyCenter">
                                                 <p>Candidate Profile</p>
@@ -69,7 +88,6 @@
                                                             <img src="../assets/default_avatar.webp" alt="Default User Profile" width="100px" height="100px">
                                                         </div>
                                                     </li>
-                                                    <!-- <br> -->
                                                     <li>
                                                         <div class="wrapper">
                                                             <h2 id="CandidateName">Sneha Nene</h2>
@@ -81,7 +99,7 @@
                                         <br>
                                         <li style="flex: 20;">
                                             <div class="wrapper">
-                                                <ul class="listVerti childHeight100p">
+                                                <ul class="listVerti childHeight100p" style="text-indent: 5px;">
                                                     <li class="sideNavTab">
                                                         <div class="wrapper alignLeft">
                                                             <p>Consent Form</p>
@@ -147,8 +165,8 @@
                                         <li class="mainContainer">
                                             <div class="wrapper">
                                                 <div id="FormSpace" class="boxShadow2 boxBorder1">
-                                                    <div class="frame">
-                                                        <div class="wrapper">
+                                                    <div class="frame borderRadius1 overflowHidden">
+                                                        <div class="wrapper scrollbarHidden">
                                                         </div>
                                                     </div>
                                                 </div>

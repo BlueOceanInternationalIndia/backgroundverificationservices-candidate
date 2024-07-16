@@ -27,6 +27,7 @@
 
     --borderRadius: 20px;
     --footer_Height: 30px;
+    --logo_Width: 300px
 
     --Size1: clamp(5px, 0.5vw + 1px, 10px);
     --fontSize: clamp(1rem, 1vw + .5rem, 1.5rem);
@@ -37,9 +38,10 @@
 
     /*----------------- Screen Dependent -----------------*/
     --sideNav_Pos: relative;
-    --sideNav_Width: 42%;
+    --sideNav_Width: 300px;
     --hamMenu_Display: none;
     --scrollBarWidth: 17px;
+    --UserMenuHeight: 150px;
     
 }
 
@@ -48,7 +50,6 @@
         --sideNav_Pos: absolute;
         --sideNav_Width: 0px;
         --hamMenu_Display: grid;
-
     }
 }
 
@@ -187,6 +188,13 @@ button:not([disabled]):active {
 
 .listHori > *, .listVerti > * { width: 100% }
 
+.sideNavTemplate {
+    display: grid;
+        height: 100%;
+        width: 100%;
+        grid-template-columns: auto 1fr;
+}
+
 .hoverColor3:hover { background-color: var(--Color3) }
 
 .flex { display: flex!important }
@@ -194,10 +202,16 @@ button:not([disabled]):active {
     width: fit-content; 
     height: fit-content;
 }
+.frame {
+    /* display: grid; */
+        height: 90%;
+        width: 92.5%;
+}
 
 .alignTop { align-content: top }
+.justifyTop { justify-content: top }
 .alignCenter { align-content: center }
-.justifyCenter { justify-content: center }
+.justifyCenter { justify-content: top }
 .justifyBottom { justify-content: bottom  }
 .alignLeft { justify-content: left }
 .alignRight { justify-content: right }
@@ -217,6 +231,8 @@ button:not([disabled]):active {
 .fontS { font-size: 0.75rem; }
 .fontXS { font-size: 0.5rem; }
 
+.fontBold { font-weight: 400 }
+
 .fontColor1 { color: var(--fontColor1); }
 .fontColor2 { color: var(--fontColor2) }
 
@@ -229,6 +245,7 @@ button:not([disabled]):active {
 .bgColor3 { background-color: var(--Color3) }
 
 .cursorNone { cursor: none }
+.scrollbarHidden { width: calc(100% + var(--scrollBarWidth)) }
 
 .boxShadow1 { box-shadow: var(--Color5) 0px 7px 20px 0px }
 .boxShadow2 { box-shadow: var(--Color5) 0px 0px 15px 0px }
@@ -237,6 +254,7 @@ button:not([disabled]):active {
 .boxBorder2 { border-left: 5px solid var(--palette1_Color1) }
 
 .borderRadius100 { border-radius: 100% }
+.borderRadius1 { border-radius: var(--borderRadius) }
 
 .overflowHidden { overflow: hidden }
 
@@ -245,6 +263,7 @@ button:not([disabled]):active {
 .padding30 { padding: 30px }
 
 .hidden { visibility: hidden }
+.displayNone { display: none!important }
 
 .red{ background-color: red }
 .blue{ background-color: lightblue }
@@ -255,9 +274,7 @@ button:not([disabled]):active {
 .logo {
     display: grid;
         height: var(--header_Height);
-        min-width: 198px;
-        width: 45vw;
-        max-width: 298px;
+        max-width: 300px;
     place-items: center;
     border-right: 2px solid var(--Color3);
 }
@@ -268,15 +285,29 @@ button:not([disabled]):active {
     margin: 20px;
 }
 
+.popUp {
+    position: absolute;
+    display: none;
+    /* display: grid; */
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+    place-content: center;
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    z-index: 1000;
+}
+
 .sideNav {
     position: var(--sideNav_Pos);
     display: grid;
         height: 100%;
         width: var(--sideNav_Width);
-        max-width: 300px;
         top: 0;
         left: 0;
-    place-items: center;
+    align-items: center;
+    transition: width .15s linear;
     background-image: linear-gradient(to right, var(--palette1_Color1), var(--palette1_Color2));
     overflow: hidden;
     z-index: 1000;
@@ -310,6 +341,32 @@ button:not([disabled]):active {
     transition: transform .1s linear;
 }
 
-.hamMenu[data-status = "active"] > .wrapper > *:nth-child(2) { transform: translate(0, 220%) rotate(45deg) }
+
+.hamMenu[data-status = "active"] > .wrapper > *:nth-child(2) { transform: translate(0, 260%) rotate(45deg) }
 .hamMenu[data-status = "active"] > .wrapper > *:nth-child(3) { visibility: hidden }
-.hamMenu[data-status = "active"] > .wrapper > *:nth-child(4) { transform: translate(0, -220%) rotate(-45deg) }
+.hamMenu[data-status = "active"] > .wrapper > *:nth-child(4) { transform: translate(0, -260%) rotate(-45deg) }
+
+.dropDown {
+    position: absolute;
+        height: 0;
+        width: 200px; 
+        top: 100%; 
+        right: 0; 
+    transition: height .25s linear;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropDown > * {
+    position: absolute;
+    height: var(--UserMenuHeight);
+}
+
+.dropDown > * > * { 
+    height: 100%;
+    border-bottom: 1px solid var(--Color5);
+}
+
+.dropDown[data-status = "active"] { height: var(--UserMenuHeight) }
+
+

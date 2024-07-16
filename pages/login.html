@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../styles/login.css">
         <link rel="stylesheet" href="../styles/common.css">
+        <link rel="stylesheet" href="../styles/loading.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -33,6 +34,9 @@
                 </li>
                 <li class="mainContainer">
                     <div id="Login_Window" class="wrapper boxShadow1">
+                        <div class="popUp">
+                            <div class="loader"></div>
+                        </div>
                         <ul class="listVerti">
                             <li class="header fontColor2 fontXL">
                                 <div class="wrapper textCenter">
@@ -54,7 +58,7 @@
                                                             </li>
                                                             <li>
                                                                 <div class="wrapper">
-                                                                    <input id="Login_Username" type="text" required>
+                                                                    <input id="Login_Username" type="text" >
                                                                 </div>
                                                             </li>
                                                         </ul>
@@ -70,14 +74,14 @@
                                                             </li>
                                                             <li>
                                                                 <div class="wrapper">
-                                                                    <input id="Login_Password" type="password" required>
+                                                                    <input id="Login_Password" type="password" >
                                                                 </div>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </li>
                                                 <li class="mainContainer">
-                                                    <div class="wrapper">
+                                                    <div class="wrapper alignBottom">
                                                         <button type="submit">Login</button>
                                                         <p class="message fontS hidden">message</p>
                                                     </div>

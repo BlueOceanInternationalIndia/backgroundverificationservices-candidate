@@ -7,10 +7,11 @@ import onClick from './services/onCLick_Services.js';
 export const elements = {
     Root: null,
     FormSpace: null,
+    SideNav: null,
     SideNavTabs: null,
     HamMenu: null,
+    UserProfileBtn: null,
     UserMenu: null,
-    SideNav: null,
     Form: null,
     ActiveForm: 0,
     SECTIONS: 9
@@ -35,7 +36,8 @@ export const activeUser = {
 }
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-    page.updateElements()
+    //Updating Available Dom Elements
+    await page.updateElements()
 
     //Setting current browser scrollbar width in CSS
     page.updateScrollWidth();
@@ -51,7 +53,6 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         value.enabled = urlParams.get(`e${formNum}`) == 'true';
         value.submitted = !(urlParams.get(`a${formNum}`) == 'true');
         (value.file1 !== undefined)? value.file1 = (urlParams.get(`${formNum}f1`) == 'true') : null;
-        // console.log(key, value, value.file1 !== undefined, formNum);
     };
 
     //Validating Request and Updating User
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         console.log("Invalid User");
         window.location.href = ("../index.html?valid=false");
     } else {
-        console.log("Valid Request, User Updated");
+        // console.log("Valid Request, User Updated");
         const User = document.querySelector('#CandidateName');
         User.innerText = activeUser.name.toString();
     }
@@ -74,24 +75,19 @@ document.addEventListener('DOMContentLoaded', async (e) => {
 
     await form.showLoading();
     await user.loginValidate();
-    await form.update(elements.ActiveForm);
+    onClick.navMenuTabs(elements.ActiveForm)
 })
 
 
 window.addEventListener('load', (e) => {
-
-    //Detecting Form Submit
-    elements.FormSpace.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // console.log('FORM SUBMITTED', e);
-    })
+    //Detecting Form Submit And Updating ActiveForm If Form Submitted
+    elements.FormSpace.addEventListener('submit', (e) => (form.onSubmit(e))? onClick.navMenuTabs(((elements.ActiveForm + 1) < 9)? (elements.ActiveForm + 1) : 0 ) : console.log("Error Submitting form"))
 
     //Detecting Active Menu
     elements.HamMenu.addEventListener("click", () => onClick.hamMenu());
-    elements.UserMenu.addEventListener("click", () => onClick.userMenu());
+    elements.UserProfileBtn.addEventListener("click", () => onClick.userMenu());
 
     for(let i = 0; i < elements.SideNavTabs.length; i++) elements.SideNavTabs[i].addEventListener("click", () => onClick.navMenuTabs(i));
-    // for(let i = 0; i < elements.UserMenuTab.length; i++) elements.UserMenuTab[i].addEventListener("click", () => onClick.userMenuTabs(i));
-
+    for(let i = 0; i < elements.UserMenu.children[0].children.length; i++) elements.UserMenu.children[0].children[i].addEventListener("click", () => onClick.userMenuTabs(i));
 })
 

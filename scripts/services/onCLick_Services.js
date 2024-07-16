@@ -47,6 +47,19 @@ const onClick = {
         elements.HamMenu.dataset.status = "inactive";
         elements.SideNav.dataset.status = "inactive";
         return true
+    },
+
+    userMenuTabs: (activeTab) => {
+        user.loginValidate();
+        switch(activeTab) {
+            case 0: 
+                break;
+            case 1: 
+                break;
+            case 2: 
+                user.logout();
+                break;
+        }
     }
 }
 
