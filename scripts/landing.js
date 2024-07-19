@@ -13,7 +13,11 @@ export const elements = {
     UserProfileBtn: null,
     UserMenu: null,
     Form: null,
-    ActiveForm: 0,
+    FormData: null,
+    PopUp: null,
+    PopUpSubmitBtn: null,
+    PopUpCancelBtn: null,
+    ActiveForm: null,
     SECTIONS: 9
 }
 
@@ -36,7 +40,6 @@ export const activeUser = {
 }
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-    //Updating Available Dom Elements
     await page.updateElements()
 
     //Setting current browser scrollbar width in CSS
@@ -62,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         console.log("Invalid User");
         window.location.href = ("../index.html?valid=false");
     } else {
-        // console.log("Valid Request, User Updated");
+        console.log("Valid Request, User Updated");
         const User = document.querySelector('#CandidateName');
         User.innerText = activeUser.name.toString();
     }
@@ -70,8 +73,9 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     //Validating Enabled Forms and Updating Active Form
     for(const [key, value] of Object.entries(activeUser.log)) {
         elements.SideNavTabs[Number(key.split('form')[1])].dataset.enabled = value.enabled;
-        if(value.enabled == true && value.submitted == false) elements.ActiveForm = Number(key.split('form')[1]);    
+        if(value.enabled == true && value.submitted == false && elements.ActiveForm === null) elements.ActiveForm =  Number(key.split('form')[1]);    
     }
+    if(elements.ActiveForm === null) elements.ActiveForm = 0
 
     await form.showLoading();
     await user.loginValidate();
@@ -80,8 +84,9 @@ document.addEventListener('DOMContentLoaded', async (e) => {
 
 
 window.addEventListener('load', (e) => {
+
     //Detecting Form Submit And Updating ActiveForm If Form Submitted
-    elements.FormSpace.addEventListener('submit', (e) => (form.onSubmit(e))? onClick.navMenuTabs(((elements.ActiveForm + 1) < 9)? (elements.ActiveForm + 1) : 0 ) : console.log("Error Submitting form"))
+    elements.FormSpace.addEventListener('submit', async (e) => await form.onSubmit(e))
 
     //Detecting Active Menu
     elements.HamMenu.addEventListener("click", () => onClick.hamMenu());
@@ -89,5 +94,11 @@ window.addEventListener('load', (e) => {
 
     for(let i = 0; i < elements.SideNavTabs.length; i++) elements.SideNavTabs[i].addEventListener("click", () => onClick.navMenuTabs(i));
     for(let i = 0; i < elements.UserMenu.children[0].children.length; i++) elements.UserMenu.children[0].children[i].addEventListener("click", () => onClick.userMenuTabs(i));
+
+})
+
+window.addEventListener('resize', () => {
+    //Updating current browser scrollbar width in CSS
+    page.updateScrollWidth();
 })
 

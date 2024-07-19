@@ -26,6 +26,7 @@ const page = {
         document.body.appendChild(tempElem);
         const width = tempElem.offsetWidth - tempElem.clientWidth;
         tempElem.remove();
+
         elements.Root.style.setProperty('--scrollBarWidth', `${width}px`);
     },
 }

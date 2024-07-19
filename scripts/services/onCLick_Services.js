@@ -1,6 +1,7 @@
 import user from "./user_Services.js";
 import form from "./form_Services.js";
 import { elements } from "../landing.js";
+import form0 from "../forms/form0.js";
 
 const onClick = {
     hamMenu: () => {
@@ -30,16 +31,6 @@ const onClick = {
         elements.SideNavTabs[activeTab].dataset.status = "active";
 
         document.querySelector('#FormHeading').innerText = `Candidate Form > Section ${activeTab+1} of ${elements.SECTIONS}`;
-        elements.FormSpace.dataset.form = 
-        (activeTab == 0)? "Consent Form" : 
-        (activeTab == 1)? "Personal Details" : 
-        (activeTab == 2)? "Address Verification" : 
-        (activeTab == 3)? "Identity Verification" : 
-        (activeTab == 4)? "Court Record Verification" : 
-        (activeTab == 5)? "Education Verification" : 
-        (activeTab == 6)? "Employment Verification" : 
-        (activeTab == 7)? "Professional Reference Verification" : 
-        (activeTab == 8)? "Personal Reference Verification" : "Error"
         elements.FormSpace.dataset.id = activeTab;
         form.update(activeTab);
 

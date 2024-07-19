@@ -2,6 +2,8 @@ import { elements } from "../landing.js";
 import page from "./page_Services.js";
 import user from "./user_Services.js";
 import form0 from '../forms/form0.js'
+import form1 from '../forms/form1.js'
+import onClick from "./onCLick_Services.js";
 
 const form = {
     appendData: async (data) => {
@@ -48,14 +50,7 @@ const form = {
     onLoad: async (formNum) => {
         switch(formNum) {
             case 0: return form0.onLoad();
-            // case 1: return form1.onLoad();
-            // case 2: return form2.onLoad();
-            // case 3: return form3.onLoad();
-            // case 4: return form4.onLoad();
-            // case 5: return form5.onLoad();
-            // case 6: return form6.onLoad();
-            // case 7: return form7.onLoad();
-            // case 8: return form8.onLoad();
+            case 1: return form1.onLoad();
             default: console.log('Invalid Form, Cannot Load');
         }
     },
@@ -63,20 +58,47 @@ const form = {
     onSubmit: async (e) => {
         e.preventDefault();
         await user.loginValidate();
-        switch(elements.ActiveForm) {
-            case 0: return await form0.onSubmit(e);
-            // case 1: return await form1.onSubmit(e);
-            // case 2: return await form2.onSubmit(e);
-            // case 3: return await form3.onSubmit(e);
-            // case 4: return await form4.onSubmit(e);
-            // case 5: return await form5.onSubmit(e);
-            // case 6: return await form6.onSubmit(e);
-            // case 7: return await form7.onSubmit(e);
-            // case 8: return await form8.onSubmit(e);
-            default: console.log('Invalid Form, Cannot Submit');
-        }
-        return resp;
+
+        elements.FormData = e;
+        elements.PopUp = e.target.querySelector('.popUp');
+        elements.PopUpSubmitBtn = e.target.submit,
+        elements.PopUpCancelBtn = e.target.cancel;
+
+        elements.PopUp.style.display = 'grid';
+        var submitClick = null, cancelClick = null;
+        elements.PopUpSubmitBtn.addEventListener('click', submitClick = () =>  form.onSubmitConfirm(submitClick, cancelClick))
+        elements.PopUpCancelBtn.addEventListener('click', cancelClick = () => form.onSubmitCancel(submitClick, cancelClick))
+    },
+
+    onSubmitConfirm: async (submitFn, cancelFn) => {
+        elements.PopUpSubmitBtn.removeEventListener('click', submitFn);
+        elements.PopUpCancelBtn.removeEventListener('click', cancelFn);
+        const PopUpLoader = elements.PopUp.querySelector('.popUp');
+        PopUpLoader.style.display = 'grid';
+        (elements.ActiveForm == 0)? ((await form0.onSubmit(elements.FormData))? onClick.navMenuTabs(1) : console.log('Error Submitting Form')) : 
+        (elements.ActiveForm == 1)? ((await form1.onSubmit(elements.FormData))? onClick.navMenuTabs(2) : console.log('Error Submitting Form')) : 
+       console.log('Invalid Form');
+       
+        PopUpLoader.style.display = 'none'
+        elements.PopUp.style.display = 'none';
+        elements.FormData = null;
+        elements.PopUp = null;
+        elements.PopUpSubmitBtn = null,
+        elements.PopUpCancelBtn = null;
+        return
+    },
+
+    onSubmitCancel: async (submitFn, cancelFn) => {
+        elements.PopUp.style.display = 'none';
+        elements.PopUpSubmitBtn.removeEventListener('click', submitFn);
+        elements.PopUpCancelBtn.removeEventListener('click', cancelFn);
+
+        elements.FormData = null;
+        elements.PopUp = null;
+        elements.PopUpSubmitBtn = null,
+        elements.PopUpCancelBtn = null;
     }
+
 }
 
 export default form

@@ -18,12 +18,31 @@ const user = {
         return true
     },
 
+    accessValidate: async () => {
+        const aTr = user.getCookie('aTr');
+
+        if(aTr == null || aTr == 'null' || aTr === '') {
+            user.loginValidate();
+            const rTa = user.getCookie('rTa'),
+                session = { token: `Bearer ${rTa}` };
+            const resp = await axios.post(`${AUTH_SERVER_URI}/candidate/tokens/access`, session).then((resp) => {
+                if( user.setCookie(resp.data.token, resp.data.exp, 'aTr')) return true;
+                else return false;
+            }).catch((err) => console.log('Database Connection Failed. Error:', err) );
+
+            if(resp) return user.getCookie('aTr');
+            else return null
+        }
+
+        return aTr        
+    },
+
     validate: async () => {
         const rTa = user.getCookie('rTa'),
                 activeUser = { valid: false, user: { uid: null } }
 
         //Validating cookie
-        if(rTa == null || rTa == 'null' || rTa == '') console.log("No Active Session");
+        if(rTa == null || rTa == 'null' || rTa === '') console.log("No Active Session");
         else {
             const session = { token: `Bearer ${rTa}` }
             await axios.post(`${AUTH_SERVER_URI}/candidate/valid`, session).then((resp) => {
@@ -49,9 +68,10 @@ const user = {
         return validUser
     },
 
-    getLogs: async (user) => {
-        const userLog = await axios.get(`${DATA_SERVER_URI}/candidate/logs/${user.uid}`).then((resp) => {
-            // console.log(`Logs Of ${user.username} Retrieved`);
+    getLogs: async (activeUser) => {
+        await user.accessValidate();
+        const rTa = user.getCookie('aTr');
+        const userLog = await axios.post(`${DATA_SERVER_URI}/candidate/logs/${activeUser.uid}`, { token: rTa }).then((resp) => {
             return resp.data.log
         }).catch((err) => {
             console.log('Data Server Connection failed. Error:', err);
@@ -134,7 +154,7 @@ const user = {
             try {
                 document.cookie = "rTa=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 document.cookie = "aTr=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                // console.log('Session Terminated');
+                console.log('Session Terminated');
             } catch(err) {
                 console.log('Cannot Delete Cookies. Error:', err);
                 return false
@@ -143,7 +163,9 @@ const user = {
             const currLoc = window.location.href.split('/');
             const currDir = currLoc[currLoc.length - 2];
             (currDir == 'pages')? window.location.href = '../index.html?valid=true' : window.location.href = './index.html?valid=true';
-        } else console.log('Error Logging Out, Try again');     
+        } else {
+            console.log('Error Logging Out, Try again');
+        }        
     }
 }
 
