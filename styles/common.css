@@ -28,7 +28,8 @@
     --borderRadius: 20px;
     --header_Height: 80px;
     --footer_Height: 30px;
-    --logo_Width: 300px
+    --logo_Width: 300px;
+    --visibleScrollBarWidth: 5px;
 
     --Size1: clamp(5px, 0.5vw + 1px, 10px);
     --fontSize: clamp(1rem, 1vw + .5rem, 1.5rem);
@@ -44,6 +45,7 @@
     --scrollBarWidth: 17px;
     --UserMenuHeight: 150px;
     --submitWindow_Height: 50%;
+    --listHoriVerti_FlexDir: row;
     
 }
 
@@ -53,6 +55,7 @@
         --sideNav_Width: 0px;
         --hamMenu_Display: grid;
         --submitWindow_Height: 90%;
+        --listHoriVerti_FlexDir: column;
     }
 }
 
@@ -113,6 +116,9 @@ input[type="checkbox"] {
     width: 30px;
     margin: 10px;
 }
+
+input[type="radio"] { width: 20px; height: 20px }
+input[type="radio"]:focus { box-shadow: none }
 
 button {
         height: 45px;
@@ -189,7 +195,35 @@ button:not([disabled]):active {
     isolation: isolate;
 }
 
+.listHoriVerti {
+    display: flex;
+        height: 100%;
+        width: 100%;
+    flex-direction: var(--listHoriVerti_FlexDir);
+    justify-content: space-evenly;
+    align-content: center;
+}
+
 .listHori > *, .listVerti > * { width: 100% }
+
+.scrollY {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.scrollY > * {
+    position: absolute;
+    overflow-y: scroll;
+    align-items: start;
+    
+}
+
+.scrollY > * > *{
+    width: 96%;
+    height: max-content;
+    justify-self: left;
+}
 
 .sideNavTemplate {
     display: grid;
@@ -242,7 +276,7 @@ button:not([disabled]):active {
 .fontS { font-size: 0.75rem; }
 .fontXS { font-size: 0.5rem; }
 
-.fontBold { font-weight: 400 }
+.fontBold { font-weight: 600 }
 
 .fontColor1 { color: var(--fontColor1); }
 .fontColor2 { color: var(--fontColor2) }
@@ -256,7 +290,8 @@ button:not([disabled]):active {
 .bgColor3 { background-color: var(--Color3) }
 
 .cursorNone { cursor: none }
-.scrollbarHidden { width: calc(100% + var(--scrollBarWidth)) }
+.scrollbarHiddenY { width: calc(100% + var(--scrollBarWidth) - var(--visibleScrollBarWidth)) }
+.scrollbarHiddenX { height: calc(100% + var(--scrollBarWidth) - var(--visibleScrollBarWidth)) }
 
 .boxShadow1 { box-shadow: var(--Color5) 0px 7px 20px 0px }
 .boxShadow2 { box-shadow: var(--Color5) 0px 0px 15px 0px }
@@ -331,14 +366,9 @@ button:not([disabled]):active {
     z-index: 1000;
 }
 
-.sideNavTab { border-left: 5px solid var(--palette1_Color1) }
-
-.sideNavTab:hover{
-    background-color: var(--palette1_Color2);
-    border-left: 5px solid var(--Color1);  
-}
-
 .sideNav[data-status = "active"] { width: 300px!important }
+.sideNavTab { border-left: 5px solid var(--palette1_Color1) }
+.sideNavTab[data-status = "active"], .sideNavTab:hover { background-color: var(--palette1_Color2); border-left: 5px solid var(--Color1) }
 .sideNavTab[data-enabled="false"] { color: var(--palette1_Color2) }
 
 .hamMenu {

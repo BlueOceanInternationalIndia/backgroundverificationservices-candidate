@@ -1,0 +1,287 @@
+<div class="wrapper">
+    <ul class="listVerti" style="position: relative;">
+        <div class="popUp">
+            <div class="wrapper submitWindow bgColor1 padding10 borderRadius1 boxShadow2">
+                <div class="popUp">
+                    <div class="loader"></div>
+                </div>
+                <ul class="listVerti">
+                    <li class="header fontXXL textCenter">
+                        <div class="wrapper">
+                            <p class="">Confirm Submission</p>
+                        </div>
+                    </li>
+                    <br>
+                    <li class="mainContainer textJustify" style="height: max-content;">
+                        <div class="frame" style="height: max-content;">
+                            <ul class="listVerti">
+                                <li>
+                                    <div class="wrapper">
+                                        <p>Once submitted the form cannot be edited. Please review the entered information and confirm submission.</p>
+                                    </div>
+                                </li>
+                                <br>
+                                <li>
+                                    <div class="wrapper">
+                                        <p>By clicking 'Submit' I confirm that the information entered is correct to the best of my knowledge.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <br>
+                    <hr>
+                    <li class="">
+                        <div class="wrapper">
+                            <ul class="listHori">
+                                <li>
+                                    <div class="wrapper">
+                                        <button name="submit" type="button">Submit</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper">
+                                        <button name="cancel" type="button">Cancel</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <li style="flex: 1;">
+            <div class="wrapper">
+                <ul class="listVerti">
+                    <li class="fontXXXL fontBold">
+                        <div class="wrapper alignLeft">
+                            <p>Identity Verification</p>
+                        </div>
+                    </li>
+                    <li class="fontS">
+                        <div class="wrapper alignLeft">
+                            <p>All fields are mandatory<br>
+                                OTP will be required to complete this step</p>
+                            <br>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="scrollY" style="flex: 10;">
+            <div class="wrapper">
+                <ul class="listVerti">
+                    <li>
+                        <div class="wrapper fontL">
+                            <p>Aadhaar Verification</p>
+                            <hr>
+                        </div>
+                    </li>
+                    <br>
+                    <li>
+                        <div class="wrapper">
+                            <ul class="listVerti">
+                                <li>
+                                    <div class="wrapper">
+                                        <ul class="listHoriVerti">
+                                            <li class="mainContainer">
+                                                <div class="wrapper">
+                                                    <ul class="listVerti">
+                                                        <li>
+                                                            <div class="wrapper alignLeft">
+                                                                <label for="Aadhar">Aadhar Number</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="wrapper">
+                                                                <input type="text" id="Aadhar" name="aadhar" placeholder="Enter Your Aadhar Number" required>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer">
+                                                <div class="wrapper">
+                                                    <ul class="listVerti">
+                                                        <li>
+                                                            <div class="wrapper alignLeft">
+                                                                <label for="AadharNumber">Number Linked with Aadhar</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="wrapper">
+                                                                <ul class="listHori">
+                                                                    <li style="width: max-content;">
+                                                                        <div class="wrapper">
+                                                                            <select class="mobileCountryCodes" name="aadharNumberCode" style="width: 80px;" required>
+                                                                                <option data-countryCode="IN" value="91">+91</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="wrapper">
+                                                                            <input type="tel" id="AadharNumber" name="aadharNumber" placeholder="Enter Number Linked With Aadhaar" required>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper alignRight">
+                                        <button>Send OTP</button>
+                                    </div>
+                                </li>
+                                <li class="otp displayNone">
+                                    <div class="wrapper">
+                                        <ul class="listHori">
+                                            <li class="mainContainer" style="flex: 10;">
+                                                <div class="wrapper">
+                                                    <input type="text" placeholder="Enter OTP Received">
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer" style="flex: 1;">
+                                                <div class="wrapper alignLeft">
+                                                    <button>Verify OTP</button>
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer message hidden" style="flex: 1;">
+                                                <div class="wrapper alignLeft fontXXL">
+                                                    <p>&#9989</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <br>
+                    <br>
+                    <br>
+                    
+                    <li>
+                        <div class="wrapper fontL">
+                            <p>PAN Verification</p>
+                            <hr>
+                        </div>
+                    </li>
+                    <br>
+                    <li>
+                        <div class="wrapper">
+                            <ul class="listVerti">
+                                <li>
+                                    <div class="wrapper">
+                                        <ul class="listHoriVerti">
+                                            <li class="mainContainer">
+                                                <div class="wrapper">
+                                                    <ul class="listVerti">
+                                                        <li>
+                                                            <div class="wrapper alignLeft">
+                                                                <label for="PAN">PAN Number</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="wrapper">
+                                                                <input type="text" id="PAN" name="pan" placeholder="Enter Your PAN Number" required>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer">
+                                                <div class="wrapper">
+                                                    <ul class="listVerti">
+                                                        <li>
+                                                            <div class="wrapper alignLeft">
+                                                                <label for="PANNumber">Number Linked with PAN</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="wrapper">
+                                                                <ul class="listHori">
+                                                                    <li style="width: max-content;">
+                                                                        <div class="wrapper">
+                                                                            <select class="mobileCountryCodes" name="PANNumberCode" style="width: 80px;" required>
+                                                                                <option data-countryCode="IN" value="91">+91</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="wrapper">
+                                                                            <input type="tel" id="PANNumber" name="panNumber" placeholder="Enter Number Linked With PAN" required>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper alignRight">
+                                        <button>Send OTP</button>
+                                    </div>
+                                </li>
+                                <li class="otp displayNone">
+                                    <div class="wrapper">
+                                        <ul class="listHori">
+                                            <li class="mainContainer" style="flex: 10;">
+                                                <div class="wrapper">
+                                                    <input type="text" placeholder="Enter OTP Received">
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer" style="flex: 1;">
+                                                <div class="wrapper alignLeft">
+                                                    <button>Verify OTP</button>
+                                                </div>
+                                            </li>
+                                            <li class="mainContainer message hidden" style="flex: 1;">
+                                                <div class="wrapper alignLeft fontXXL">
+                                                    <p>&#9989</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <br>
+                    <br>
+                    <br>
+                    <li>
+                        <div class="wrapper">
+                            <ul class="listHori">
+                                <li style="width: max-content;">
+                                    <div class="wrapper">
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </li>
+                                <li style="width: max-content;">
+                                    <div class="wrapper">
+                                        <button type="reset">Reset</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="wrapper">
+                                        <p class="message fontS hidden">Invalid Input, Please check all fields</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -68,9 +68,9 @@
                 </ul>
             </div>
         </li>
-        <li class="textJustify" style="flex: 10; overflow-y: scroll; position: relative; height: 100%;">
-            <div class="wrapper" style="position: absolute;">
-                <ul>
+        <li class="scrollY textJustify" style="flex: 10">
+            <div class="wrapper">
+                <ul class="listVerti">
                     <li>
                         <div class="wrapper">
                             <p>I hereby understand and acknowledge that Blue Ocean International (hereinafter referred as BOI) shall be rendering verification services to the Requesting Company as offered in the user agreement signed between both Companies(BOI and Requesting Company). The services to be rendered by the BOI shall include package, as selected by the Requesting Company, while signing the agreement. I have been explained thoroughly about such verification services, by the Requesting Company, which are proposed to be undertaken by BOI. The purpose of this express and wilful consent is well explained to me in the language known to me by the Requesting Company and I hereby fully authorise BOI to hold access and use the verification data in perpetuity to perform its services as it deems necessary. I hereby authorise BOI and its designated analysts, officers, agents and representatives to conduct a comprehensive verification of my background which may include my identity, employment (present/past), financial, commercial, matrimonial, criminal, drug history, professional background verification, personal back ground verification and /or any additional information required, and to provide a report to the Requesting Company, depending upon the types of verifications required to be done, based on user agreement signed between both Companies(BOI and Requesting Company), including but not limited to tenure, employment, remuneration, education, address, marital, professional, financial, commercial, creditworthiness or any other information obtained from past employers/suggested references/any other sources as may be deemed fit, to whom I may or may not have provided any consent to share such information / feedback with BOI etc. I understand and agree that BOI is relying on the information provided to it by my past employers / relevant sources and is not responsible or liable for accuracy or completeness of the information provided to it from such sources. I understand and confirm that BOI may share its verification report(s) with the Requesting Company for a fee, upon receipt of my information/details through this consent/authorisation by electronic message or otherwise; and that BOI may retain the information contained in the said feedback/verification report and any update thereto without any restrictions, reservation or expiration. I also understand and agree that BOI may use my information/details to review and analyse market trends or other research and study work and prepare a database, publish the same and for any other business purpose as may be deemed fit by BOI. I understand that my information/details may be collected, stored, retained or processed anywhere in the world and not necessarily within the jurisdiction of the country where I currently reside, or where I was or am temporarily located, and have no objection for the same. I confirm that when I share my information with the Requesting Company, it is solely at my discretion and that I have satisfied myself of the credentials of the Requesting Company, as provided by the Requesting Company, and take complete responsibility of the same and I am fully and completely responsible for permitting my employer /references/sources (present/past) to share the information with BOI and for authorising the Requesting Company to request and obtain my feedback/report from BOI. I recognise and acknowledge that the accuracy, validity or completeness of the feedback/report provided by BOI is not guaranteed and I hereby release BOI and its parent, sister, affiliated companies, successors and assigns and its and their directors, officers, agents, employees and independent contractors (collectively, “BOI Affiliates”) from any liability for any negligence in connection with the preparation of the Report and from any loss, damages, expenses, costs or obligations of any kind and nature whatsoever suffered by me resulting directly or indirectly from the inaccuracy, invalidity or incompleteness of the Report. I understand and confirm that the BOI Affiliates are not responsible for any losses which I may incur or any damages which may arise as a result of the feedback/verification report carried out by BOI on the basis of my information/details either provided by me directly or through any third person as my Requestor or by any person illegally representing as my Requestor or for permitting my former or current employer to share the information with BOI or my information not being correct. I hereby authorise the complete release of these records or data pertaining to me which an individual, company, firm, corporation, or public agency may have. I authorise the full release of the information described above, without any reservation, through all the details to do my Background Verification. I hereby release BOI and its analysts, officers, agents, representatives, or assigned agencies, including officers, employees, or related personnel both individually and collectively, from any and all liability for damages of whatever kind, which may at any time, result to me, my heirs, family or associates because of compliance with this authorisation and request to relapse. I certify that all information which will be provided by me to BOI alomng with uploaded documents will be correct to the best of my knowledge. Any false statements provided will be considered just cause for the termination of offer or employment at any time. This authorisation and consent shall be valid in original, fax, if digitally signed or in copy form. I further state that terms of this form have been well explained to me by the Requesting Company, in language known to me. I have understood the same and hereby executing this consent voluntarily thereto.  I am aware that if I have concerns about the terms and conditions presented here, I can review them and seek legal advice before proceeding. So by checking the box, I hereby agree to all the terms and conditions and give my consent to go ahead with the verifications.											</p> 
@@ -78,22 +78,32 @@
                     </li>
                     <li>
                         <div class="wrapper">
-                            <br>
-                            <ul class="listHori">
-                                <li style="flex: 1;">
-                                    <div class="wrapper alignRight">
-                                        <input type="checkbox" id="Checkbox" name="checkbox" required/>
+                            <ul class="listVerti">
+                                <li>
+                                    <div class="wrapper">
+                                        <ul class="listHori">
+                                            <li style="flex: 1;">
+                                                <div class="wrapper alignRight">
+                                                    <input type="checkbox" id="Checkbox" name="consent" required/>
+                                                </div>
+                                            </li>
+                                            <li class="fontM" style="flex: 8;">
+                                                <div class="wrapper">
+                                                    <label for="Checkbox" style="text-indent: 0; padding: 0;">I agree to these Terms and Conditions and consent to the process of background verification provided by Blueocean International</label>
+                                                </div>
+                                            </li>
+                                            <li style="flex: 2; padding-right: 10px;">
+                                                <div class="wrapper">
+                                                    <button type="submit" id="SubmitBtn" name="button">Submit</button>
+                                                    <!-- <button type="reset" id="ResetBtn" name="button">Reset</button> -->
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </li>
-                                <li class="fontM" style="flex: 10;">
+                                <li>
                                     <div class="wrapper">
-                                        <label for="Checkbox" style="text-indent: 0; padding: 0;">I agree to these Terms and Conditions and consent to the process of background verification provided by Blueocean International</label>
-                                    </div>
-                                </li>
-                                <li style="flex: 2; padding-right: 10px;">
-                                    <div class="wrapper">
-                                        <button type="submit" id="SubmitBtn" name="button">Submit</button>
-                                        <!-- <button type="reset" id="ResetBtn" name="button">Reset</button> -->
+                                        <p class="message fontS hidden">Invalid Input, Please check all fields</p>
                                     </div>
                                 </li>
                             </ul>

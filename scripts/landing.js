@@ -1,6 +1,5 @@
 import form from './services/form_Services.js';
 import page from './services/page_Services.js';
-import user from './services/user_Services.js';
 import onClick from './services/onCLick_Services.js';
 
 //Elements are stored and need to updated every time DOM is manipulated
@@ -35,7 +34,8 @@ export const activeUser = {
         form5: { enabled: null, submitted: null },
         form6: { enabled: null, submitted: null },
         form7: { enabled: null, submitted: null },
-        form8: { enabled: null, submitted: null }            
+        form8: { enabled: null, submitted: null },            
+        form9: { enabled: null, submitted: null }            
     }
 }
 
@@ -65,40 +65,36 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         console.log("Invalid User");
         window.location.href = ("../index.html?valid=false");
     } else {
-        console.log("Valid Request, User Updated");
         const User = document.querySelector('#CandidateName');
         User.innerText = activeUser.name.toString();
     }
 
     //Validating Enabled Forms and Updating Active Form
-    for(const [key, value] of Object.entries(activeUser.log)) {
-        elements.SideNavTabs[Number(key.split('form')[1])].dataset.enabled = value.enabled;
-        if(value.enabled == true && value.submitted == false && elements.ActiveForm === null) elements.ActiveForm =  Number(key.split('form')[1]);    
-    }
-    if(elements.ActiveForm === null) elements.ActiveForm = 0
-
+    await page.updateActiveForms();
     await form.showLoading();
-    await user.loginValidate();
-    onClick.navMenuTabs(elements.ActiveForm)
+    await onClick.navMenuTabs(elements.ActiveForm);
 })
 
 
 window.addEventListener('load', (e) => {
-
     //Detecting Form Submit And Updating ActiveForm If Form Submitted
-    elements.FormSpace.addEventListener('submit', async (e) => await form.onSubmit(e))
+    elements.FormSpace.addEventListener('submit', async (e) => await form.onSubmit(e));
+
+    //Detecting Checkboxes
+    elements.FormSpace.addEventListener('input', async (e) => (e.target.type == 'checkbox')? await form.onChecked(e) : null);
+    
+    //Detecting Checkboxes
+    elements.FormSpace.addEventListener('click', async (e) => (e.target.classList.value == 'actionButton')? await form.onAction(e) : null);
+    
 
     //Detecting Active Menu
     elements.HamMenu.addEventListener("click", () => onClick.hamMenu());
     elements.UserProfileBtn.addEventListener("click", () => onClick.userMenu());
-
     for(let i = 0; i < elements.SideNavTabs.length; i++) elements.SideNavTabs[i].addEventListener("click", () => onClick.navMenuTabs(i));
     for(let i = 0; i < elements.UserMenu.children[0].children.length; i++) elements.UserMenu.children[0].children[i].addEventListener("click", () => onClick.userMenuTabs(i));
 
 })
 
 window.addEventListener('resize', () => {
-    //Updating current browser scrollbar width in CSS
     page.updateScrollWidth();
 })
-

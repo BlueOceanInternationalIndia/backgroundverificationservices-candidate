@@ -1,7 +1,6 @@
 import user from "./user_Services.js";
 import form from "./form_Services.js";
 import { elements } from "../landing.js";
-import form0 from "../forms/form0.js";
 
 const onClick = {
     hamMenu: () => {
@@ -22,17 +21,18 @@ const onClick = {
         return true
     },
 
-    navMenuTabs: (activeTab) => {
+    navMenuTabs: async (activeTab) => {
         user.loginValidate();
         if(elements.SideNavTabs[activeTab].dataset.enabled == "false") return false;
 
         // Add below code in initialization too
-        Object.keys(elements.SideNavTabs).forEach((key) => (elements.SideNavTabs[key].dataset.status == 'active')? elements.SideNavTabs[key].dataset.status == 'inactive' : null )
+        Object.keys(elements.SideNavTabs).forEach((key) => (elements.SideNavTabs[key].dataset.status == 'active')? elements.SideNavTabs[key].dataset.status = 'inactive' : null )
         elements.SideNavTabs[activeTab].dataset.status = "active";
 
         document.querySelector('#FormHeading').innerText = `Candidate Form > Section ${activeTab+1} of ${elements.SECTIONS}`;
+        await form.update(activeTab);
+        elements.Form.dataset.id = activeTab;
         elements.FormSpace.dataset.id = activeTab;
-        form.update(activeTab);
 
         elements.ActiveForm = activeTab;
         elements.HamMenu.dataset.status = "inactive";

@@ -14,7 +14,6 @@ const user = {
         const expiry = new Date();
         expiry.setTime(expiry.getTime() + (expiresIn_min * 60000));
         document.cookie = `${name}=${value}; expires=${expiry.toUTCString()}; path=/`
-        // console.log(`Cookie ${name} Set`);
         return true
     },
 
@@ -29,7 +28,6 @@ const user = {
                 if( user.setCookie(resp.data.token, resp.data.exp, 'aTr')) return true;
                 else return false;
             }).catch((err) => console.log('Database Connection Failed. Error:', err) );
-
             if(resp) return user.getCookie('aTr');
             else return null
         }
@@ -57,7 +55,9 @@ const user = {
                     activeUser.user.log2 = resp.data.user.log2;
                     activeUser.user.log3 = resp.data.user.log3;
                 } else console.log("Invalid User, ", resp.data.message);
-            }).catch((err) => console.log("Auth Server Connection Failed, Cannot Validate User. Error: ", err)) 
+            }).catch((err) => {
+                console.log("Auth Server Connection Failed, Cannot Validate User. Error: ", err);
+            }) 
         }
         return activeUser;
     },
@@ -91,7 +91,7 @@ const user = {
         const Input = Array.from(e.target.querySelectorAll('input')),
             Message = document.querySelector('.message');
             
-        (Message.style.visibility == 'visible')? Message.style.visibility == 'hidden' : null;
+        (Message.style.visibility == 'visible')? Message.style.visibility = 'hidden' : null;
 
         //Validating Input
         const fieldsValid = Input.forEach((elem) => {
@@ -115,17 +115,25 @@ const user = {
 
         //Calling Server to validate user
         const activeUser = await axios.post(`${AUTH_SERVER_URI}/candidate/auth`, userData).then((resp) => {
-            //Setting Cookies Passed from Server
-            if( user.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
-                user.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
-            ) window.location.href = (`landing.html?uid=${resp.data.user.uid}&id=${resp.data.user.id}&name=${resp.data.user.name}&email=${resp.data.user.email}&user=${resp.data.user.username}`);
-            else {
-                console.log('Cookie Not Set');
+            if(!resp.data.auth) {
                 PopUp.style.display = 'none';
-                Message.innerText = 'Bad request';
+                Message.innerText = resp.data.error;
                 Message.style.color = 'red';
                 Message.style.visibility = 'visible'
                 return false
+            } else {
+                //Setting Cookies Passed from Server
+                if( user.setCookie(resp.data.user.rTa, resp.data.user.rTa_exp * 60, 'rTa') && 
+                    user.setCookie(resp.data.user.aTr, resp.data.user.aTr_exp, 'aTr')
+                ) window.location.href = (`landing.html?uid=${resp.data.user.uid}&id=${resp.data.user.id}&name=${resp.data.user.name}&email=${resp.data.user.email}&user=${resp.data.user.username}`);
+                else {
+                    console.log('Cookie Not Set');
+                    PopUp.style.display = 'none';
+                    Message.innerText = 'Bad request';
+                    Message.style.color = 'red';
+                    Message.style.visibility = 'visible'
+                    return false
+                }
             }
 
         }).catch((err) => {
@@ -154,12 +162,10 @@ const user = {
             try {
                 document.cookie = "rTa=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 document.cookie = "aTr=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                console.log('Session Terminated');
             } catch(err) {
                 console.log('Cannot Delete Cookies. Error:', err);
                 return false
             }
-            console.log('User Logged Out');
             const currLoc = window.location.href.split('/');
             const currDir = currLoc[currLoc.length - 2];
             (currDir == 'pages')? window.location.href = '../index.html?valid=true' : window.location.href = './index.html?valid=true';

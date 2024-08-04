@@ -1,4 +1,4 @@
-import { elements } from "../landing.js";
+import { elements, activeUser } from "../landing.js";
 
 const page = {
     updateElements: async (elem, query) => {
@@ -29,6 +29,17 @@ const page = {
 
         elements.Root.style.setProperty('--scrollBarWidth', `${width}px`);
     },
+
+    updateActiveForms: () => {
+        for(const [key, value] of Object.entries(activeUser.log)) {
+            elements.SideNavTabs[Number(key.split('form')[1])].dataset.enabled = value.enabled;
+            if(value.enabled == true && value.submitted == false && elements.ActiveForm === null) elements.ActiveForm =  Number(key.split('form')[1]);    
+        }
+        if(elements.ActiveForm === null) {
+            elements.ActiveForm = 0;
+        }
+        return elements.ActiveForm;
+    }
 }
 
 export default page
